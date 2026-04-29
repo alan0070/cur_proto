@@ -3,10 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>신차 큐레이션 — SK다이렉트</title>
+<title>신차 큐레이션 — SK렌터카 다이렉트</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700;800&family=Noto+Sans+KR:wght@300;400;500;700;900&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
 <style>
 :root {
   --g0:#00875A; --g1:#00A86B; --g2:#E6F4EE; --g3:#B8E8D4;
@@ -21,7 +22,7 @@
 }
 *{box-sizing:border-box;margin:0;padding:0;}
 html{scroll-behavior:smooth;}
-body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--ink);min-height:100vh;overflow-x:hidden;}
+body{font-family:'Pretendard','Noto Sans KR',sans-serif;background:var(--bg);color:var(--ink);min-height:100vh;overflow-x:hidden;}
 
 /* ── HEADER ── */
 header{
@@ -37,6 +38,14 @@ header{
 .logo-text{font-size:14px;font-weight:700;color:var(--ink);letter-spacing:-.02em;}
 .logo-text span{color:var(--g0);}
 .header-info{font-size:12px;color:var(--ink4);font-weight:400;}
+.btn-home{
+  display:none;align-items:center;gap:5px;
+  background:transparent;color:var(--ink3);font-size:12px;font-weight:500;
+  padding:6px 12px;border-radius:20px;border:1px solid var(--bdr);
+  cursor:pointer;transition:all .15s;font-family:'Pretendard','Noto Sans KR',sans-serif;
+}
+.btn-home:hover{background:var(--bdr);color:var(--ink);}
+.btn-home.visible{display:flex;}
 
 /* ── SCREENS ── */
 .screen{display:none;min-height:100vh;padding-top:54px;}
@@ -62,7 +71,7 @@ header{
   animation:fadeUp .6s ease both;
 }
 .hero-h1{
-  font-family:'Instrument Serif',serif;
+  font-family:'Pretendard','Noto Sans KR',sans-serif;
   font-size:clamp(2.2rem,5.5vw,3.6rem);
   line-height:1.15;color:var(--ink);letter-spacing:-.03em;
   margin-bottom:1.2rem;
@@ -78,11 +87,12 @@ header{
   display:inline-flex;align-items:center;gap:10px;
   background:var(--g0);color:#fff;
   font-size:15px;font-weight:700;
-  padding:15px 36px;border-radius:100px;border:none;cursor:pointer;
+  padding:15px 48px;border-radius:100px;border:none;cursor:pointer;
   box-shadow:0 6px 24px rgba(0,135,90,.32);
   transition:transform .18s,box-shadow .18s,background .15s;
   animation:fadeUp .6s .3s ease both;
-  font-family:'Noto Sans KR',sans-serif;
+  font-family:'Pretendard','Noto Sans KR',sans-serif;
+  white-space:nowrap;
 }
 .btn-hero:hover{background:var(--g1);transform:translateY(-2px);box-shadow:0 10px 32px rgba(0,168,107,.38);}
 .hero-features{
@@ -167,7 +177,7 @@ header{
   padding:12px 28px;border-radius:100px;border:none;cursor:pointer;
   display:flex;align-items:center;gap:8px;
   box-shadow:0 3px 14px rgba(0,135,90,.28);
-  transition:all .18s;font-family:'Noto Sans KR',sans-serif;
+  transition:all .18s;font-family:'Pretendard','Noto Sans KR',sans-serif;
 }
 .btn-next:hover:not(:disabled){background:var(--g1);transform:translateY(-1px);box-shadow:0 6px 20px rgba(0,168,107,.35);}
 .btn-next:disabled{background:var(--bdr);color:var(--ink4);cursor:default;box-shadow:none;}
@@ -175,13 +185,13 @@ header{
 .btn-back{
   background:transparent;color:var(--ink3);font-size:13px;
   padding:12px 18px;border-radius:100px;border:1px solid var(--bdr);
-  cursor:pointer;transition:all .15s;font-family:'Noto Sans KR',sans-serif;
+  cursor:pointer;transition:all .15s;font-family:'Pretendard','Noto Sans KR',sans-serif;
 }
 .btn-back:hover{background:var(--bdr);color:var(--ink);}
 .btn-skip{
   background:transparent;color:var(--ink4);font-size:12px;
   padding:8px 14px;border-radius:8px;border:none;
-  cursor:pointer;transition:all .15s;font-family:'Noto Sans KR',sans-serif;
+  cursor:pointer;transition:all .15s;font-family:'Pretendard','Noto Sans KR',sans-serif;
   text-decoration:underline;text-underline-offset:3px;
 }
 .btn-skip:hover{color:var(--ink3);}
@@ -346,7 +356,7 @@ header{
 .btn-cta{
   background:var(--g0);color:#fff;font-size:14px;font-weight:700;
   padding:12px 26px;border-radius:100px;border:none;cursor:pointer;
-  white-space:nowrap;font-family:'Noto Sans KR',sans-serif;
+  white-space:nowrap;font-family:'Pretendard','Noto Sans KR',sans-serif;
   transition:background .15s;
 }
 .btn-cta:hover{background:var(--g1);}
@@ -354,7 +364,7 @@ header{
   display:block;width:100%;text-align:center;
   font-size:12px;color:var(--ink4);padding:10px;
   background:none;border:none;cursor:pointer;
-  font-family:'Noto Sans KR',sans-serif;
+  font-family:'Pretendard','Noto Sans KR',sans-serif;
   text-decoration:underline;text-underline-offset:3px;
 }
 .btn-restart:hover{color:var(--ink3);}
@@ -386,9 +396,12 @@ hr.div{border:none;border-top:1px solid var(--bdr);margin:1.5rem 0;}
     <div class="logo-mark">
       <svg viewBox="0 0 16 16" fill="none"><path d="M3 8 C3 5 5 3 8 3 C11 3 13 5 13 8" stroke="white" stroke-width="2" stroke-linecap="round"/><circle cx="8" cy="11" r="2" fill="white"/></svg>
     </div>
-    <span class="logo-text"><span>SK</span>다이렉트</span>
+    <span class="logo-text"><span>SK렌터카</span> 다이렉트</span>
   </div>
-  <span class="header-info" id="header-info">신차 큐레이션</span>
+  <div style="display:flex;align-items:center;gap:12px;">
+    <button class="btn-home" id="btn-home" onclick="goHero()">← 처음으로</button>
+    <span class="header-info" id="header-info">신차 큐레이션</span>
+  </div>
 </header>
 
 <!-- ══════════════ HERO ══════════════ -->
@@ -396,12 +409,12 @@ hr.div{border:none;border-top:1px solid var(--bdr);margin:1.5rem 0;}
   <div style="max-width:700px;margin:0 auto;padding:4rem 1.5rem 3rem;display:flex;flex-direction:column;align-items:center;justify-content:center;flex:1;">
     <div class="hero-eyebrow">
       <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="5" stroke="#00875A" stroke-width="1.5"/><path d="M4 6l1.5 1.5L8 4" stroke="#00875A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      AI 맞춤 추천 · 3분 완성
+      AI 맞춤 추천 · 30초면 충분!
     </div>
     <h1 class="hero-h1">내게 딱 맞는 신차,<br><em>지금 바로 찾아드려요.</em></h1>
-    <p class="hero-sub">몇 가지 질문으로 라이프스타일에 맞는 차량과 렌탈 조건을 추천해드려요. 복잡한 필터 없이 3분이면 충분해요.</p>
+    <p class="hero-sub">라이프스타일에 맞는 차량과 렌탈 조건을 30초만에 추천해드릴게요.</p>
     <button class="btn-hero" onclick="startQuiz()">
-      추천 시작하기
+      내 차 알아보기
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
     </button>
     <div class="hero-features">
@@ -840,13 +853,16 @@ function updateProgress(cur){
 
 function goHero(){
   document.getElementById('s-quiz').classList.remove('active');
+  document.getElementById('s-result').classList.remove('active');
   document.getElementById('s-hero').classList.add('active');
   document.getElementById('header-info').textContent='신차 큐레이션';
+  document.getElementById('btn-home').classList.remove('visible');
 }
 
 function startQuiz(){
   document.getElementById('s-hero').classList.remove('active');
   document.getElementById('s-quiz').classList.add('active');
+  document.getElementById('btn-home').classList.add('visible');
   showStep(1);
 }
 
@@ -876,6 +892,7 @@ function showResult(){
   document.getElementById('s-quiz').classList.remove('active');
   document.getElementById('s-result').classList.add('active');
   document.getElementById('header-info').textContent='추천 결과';
+  document.getElementById('btn-home').classList.add('visible');
   window.scrollTo({top:0,behavior:'smooth'});
 
   // chips
@@ -1065,6 +1082,7 @@ function restart(){
   document.getElementById('s-result').classList.remove('active');
   document.getElementById('s-hero').classList.add('active');
   document.getElementById('header-info').textContent='신차 큐레이션';
+  document.getElementById('btn-home').classList.remove('visible');
 }
 </script>
 </body>
