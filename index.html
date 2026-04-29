@@ -1,0 +1,1071 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>신차 큐레이션 — SK다이렉트</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+:root {
+  --g0:#00875A; --g1:#00A86B; --g2:#E6F4EE; --g3:#B8E8D4;
+  --o0:#C44E1D; --o1:#F07040; --o2:#FEF0EB;
+  --b0:#1A3FAD; --b2:#EAF1FB;
+  --p0:#5A3EB8; --p2:#F0EDFB;
+  --ink:#1C1C1C; --ink2:#444; --ink3:#777; --ink4:#AAA;
+  --bg:#F6F5F0; --srf:#FFFFFF; --bdr:#E4E2DC;
+  --r-sm:10px; --r-md:16px; --r-lg:22px; --r-xl:32px;
+  --shadow:0 2px 16px rgba(0,0,0,.07);
+  --shadow-lg:0 8px 40px rgba(0,0,0,.12);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--ink);min-height:100vh;overflow-x:hidden;}
+
+/* ── HEADER ── */
+header{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  height:54px;padding:0 2rem;
+  display:flex;align-items:center;justify-content:space-between;
+  background:rgba(246,245,240,.92);backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--bdr);
+}
+.logo{display:flex;align-items:center;gap:10px;}
+.logo-mark{width:28px;height:28px;background:var(--g0);border-radius:7px;display:flex;align-items:center;justify-content:center;}
+.logo-mark svg{width:16px;height:16px;}
+.logo-text{font-size:14px;font-weight:700;color:var(--ink);letter-spacing:-.02em;}
+.logo-text span{color:var(--g0);}
+.header-info{font-size:12px;color:var(--ink4);font-weight:400;}
+
+/* ── SCREENS ── */
+.screen{display:none;min-height:100vh;padding-top:54px;}
+.screen.active{display:flex;flex-direction:column;}
+
+/* ── HERO ── */
+#s-hero{
+  align-items:center;justify-content:center;
+  background:linear-gradient(160deg,#F6F5F0 0%,#EDF7F2 100%);
+  text-align:center;padding:54px 2rem 4rem;
+  position:relative;overflow:hidden;
+}
+#s-hero::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 800px 500px at 60% 40%,rgba(0,168,107,.08) 0%,transparent 70%);
+  pointer-events:none;
+}
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:6px;
+  font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--g0);background:var(--g2);border:1px solid var(--g3);
+  padding:5px 14px;border-radius:20px;margin-bottom:2rem;
+  animation:fadeUp .6s ease both;
+}
+.hero-h1{
+  font-family:'Instrument Serif',serif;
+  font-size:clamp(2.2rem,5.5vw,3.6rem);
+  line-height:1.15;color:var(--ink);letter-spacing:-.03em;
+  margin-bottom:1.2rem;
+  animation:fadeUp .6s .1s ease both;
+}
+.hero-h1 em{font-style:italic;color:var(--g0);}
+.hero-sub{
+  font-size:15px;color:var(--ink3);line-height:1.7;
+  max-width:460px;margin:0 auto 2.8rem;
+  animation:fadeUp .6s .2s ease both;
+}
+.btn-hero{
+  display:inline-flex;align-items:center;gap:10px;
+  background:var(--g0);color:#fff;
+  font-size:15px;font-weight:700;
+  padding:15px 36px;border-radius:100px;border:none;cursor:pointer;
+  box-shadow:0 6px 24px rgba(0,135,90,.32);
+  transition:transform .18s,box-shadow .18s,background .15s;
+  animation:fadeUp .6s .3s ease both;
+  font-family:'Noto Sans KR',sans-serif;
+}
+.btn-hero:hover{background:var(--g1);transform:translateY(-2px);box-shadow:0 10px 32px rgba(0,168,107,.38);}
+.hero-features{
+  display:flex;gap:2rem;justify-content:center;margin-top:3rem;flex-wrap:wrap;
+  animation:fadeUp .6s .4s ease both;
+}
+.hero-feat{display:flex;align-items:center;gap:7px;font-size:13px;color:var(--ink3);}
+.hero-feat-dot{width:6px;height:6px;border-radius:50%;background:var(--g1);}
+
+/* ── STEP SHELL ── */
+#s-quiz{background:var(--bg);}
+.quiz-wrap{max-width:720px;margin:0 auto;padding:2.5rem 1.5rem 6rem;}
+
+/* ── PROGRESS BAR ── */
+.progress-shell{margin-bottom:2.5rem;}
+.progress-steps{display:flex;align-items:center;gap:0;margin-bottom:.75rem;}
+.ps-item{display:flex;align-items:center;flex:1;}
+.ps-num{
+  width:28px;height:28px;border-radius:50%;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  font-size:11px;font-weight:700;
+  background:var(--bdr);color:var(--ink4);
+  transition:all .25s;position:relative;z-index:1;
+}
+.ps-item.done .ps-num{background:var(--g0);color:#fff;}
+.ps-item.active .ps-num{background:var(--ink);color:#fff;box-shadow:0 0 0 4px rgba(28,28,28,.12);}
+.ps-line{flex:1;height:2px;background:var(--bdr);transition:background .3s;}
+.ps-item.done .ps-line{background:var(--g0);}
+.ps-label{font-size:11px;color:var(--ink4);margin-top:6px;text-align:center;font-weight:500;}
+.ps-item.active .ps-label{color:var(--ink);font-weight:700;}
+.ps-item.done .ps-label{color:var(--g0);}
+.ps-labels{display:flex;}
+.ps-label-wrap{flex:1;text-align:center;}
+
+/* ── QUESTION ── */
+.q-step{animation:fadeUp .3s ease;}
+.q-kicker{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--g0);margin-bottom:10px;}
+.q-title{font-size:clamp(1.3rem,3vw,1.75rem);font-weight:700;line-height:1.3;letter-spacing:-.025em;margin-bottom:6px;}
+.q-sub{font-size:13px;color:var(--ink3);margin-bottom:1.75rem;line-height:1.6;}
+.q-note{
+  display:inline-flex;align-items:center;gap:6px;
+  font-size:12px;color:var(--o0);background:var(--o2);
+  border:1px solid rgba(196,78,29,.15);padding:5px 12px;border-radius:8px;
+  margin-bottom:1.5rem;font-weight:500;
+}
+
+/* ── OPTION CARDS ── */
+.opts{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:2rem;}
+.opts.three{grid-template-columns:repeat(3,1fr);}
+.opt{
+  background:var(--srf);border:1.5px solid var(--bdr);border-radius:var(--r-lg);
+  padding:1.3rem 1.1rem;cursor:pointer;
+  transition:border-color .18s,transform .18s,box-shadow .18s,background .18s;
+  position:relative;user-select:none;text-align:left;
+}
+.opt:hover{border-color:var(--g1);transform:translateY(-2px);box-shadow:var(--shadow);}
+.opt.sel{
+  border-color:var(--g0);background:var(--g2);
+  transform:translateY(-2px);box-shadow:0 4px 20px rgba(0,135,90,.15);
+}
+.opt-check{
+  position:absolute;top:11px;right:11px;width:20px;height:20px;border-radius:50%;
+  background:var(--g0);display:none;align-items:center;justify-content:center;
+}
+.opt-check svg{width:11px;height:11px;}
+.opt.sel .opt-check{display:flex;}
+.opt-icon{font-size:26px;margin-bottom:10px;display:block;}
+.opt-label{font-size:14px;font-weight:700;color:var(--ink);margin-bottom:4px;display:block;}
+.opt-desc{font-size:12px;color:var(--ink3);line-height:1.5;display:block;}
+.opt-badge{
+  display:inline-block;font-size:11px;font-weight:700;letter-spacing:.05em;
+  padding:2px 8px;border-radius:6px;margin-top:7px;
+}
+.badge-green{background:var(--g2);color:var(--g0);}
+.badge-blue{background:var(--b2);color:var(--b0);}
+.badge-orange{background:var(--o2);color:var(--o0);}
+
+/* ── BUTTONS ── */
+.btn-row{display:flex;align-items:center;gap:10px;}
+.btn-next{
+  background:var(--g0);color:#fff;font-size:14px;font-weight:700;
+  padding:12px 28px;border-radius:100px;border:none;cursor:pointer;
+  display:flex;align-items:center;gap:8px;
+  box-shadow:0 3px 14px rgba(0,135,90,.28);
+  transition:all .18s;font-family:'Noto Sans KR',sans-serif;
+}
+.btn-next:hover:not(:disabled){background:var(--g1);transform:translateY(-1px);box-shadow:0 6px 20px rgba(0,168,107,.35);}
+.btn-next:disabled{background:var(--bdr);color:var(--ink4);cursor:default;box-shadow:none;}
+.btn-next svg{width:16px;height:16px;}
+.btn-back{
+  background:transparent;color:var(--ink3);font-size:13px;
+  padding:12px 18px;border-radius:100px;border:1px solid var(--bdr);
+  cursor:pointer;transition:all .15s;font-family:'Noto Sans KR',sans-serif;
+}
+.btn-back:hover{background:var(--bdr);color:var(--ink);}
+.btn-skip{
+  background:transparent;color:var(--ink4);font-size:12px;
+  padding:8px 14px;border-radius:8px;border:none;
+  cursor:pointer;transition:all .15s;font-family:'Noto Sans KR',sans-serif;
+  text-decoration:underline;text-underline-offset:3px;
+}
+.btn-skip:hover{color:var(--ink3);}
+
+/* ── RESULT ── */
+#s-result{background:var(--bg);}
+.result-wrap{max-width:720px;margin:0 auto;padding:2.5rem 1.5rem 6rem;}
+.result-kicker{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--g0);margin-bottom:10px;}
+.result-title{font-size:clamp(1.4rem,3.5vw,2rem);font-weight:700;letter-spacing:-.03em;line-height:1.2;margin-bottom:.6rem;}
+.result-sub{font-size:13px;color:var(--ink3);margin-bottom:1.5rem;}
+
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:2rem;}
+.chip{
+  font-size:12px;font-weight:500;padding:4px 12px;border-radius:20px;
+  background:var(--srf);border:1px solid var(--bdr);color:var(--ink3);
+}
+
+/* ── PRODUCT TAB ── */
+.product-tabs{display:flex;gap:6px;margin-bottom:1.5rem;}
+.ptab{
+  flex:1;padding:10px 8px;border-radius:var(--r-sm);border:1.5px solid var(--bdr);
+  background:var(--srf);cursor:pointer;text-align:center;transition:all .18s;
+}
+.ptab:hover{border-color:var(--g1);}
+.ptab.active{border-color:var(--g0);background:var(--g2);}
+.ptab-label{font-size:12px;font-weight:700;color:var(--ink3);display:block;}
+.ptab.active .ptab-label{color:var(--g0);}
+.ptab-why{font-size:11px;color:var(--ink4);line-height:1.4;margin-top:4px;}
+.ptab.active .ptab-why{color:var(--g0);}
+
+/* ── WHY CARD ── */
+.why-card{
+  background:var(--g2);border:1px solid var(--g3);border-radius:var(--r-md);
+  padding:1rem 1.25rem;margin-bottom:1.5rem;
+  display:flex;gap:12px;align-items:flex-start;
+}
+.why-icon{font-size:22px;flex-shrink:0;margin-top:2px;}
+.why-title{font-size:13px;font-weight:700;color:var(--g0);margin-bottom:4px;}
+.why-text{font-size:13px;color:var(--ink2);line-height:1.6;}
+
+/* ── CAR CARDS ── */
+.car-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:1.75rem;}
+.car-card{
+  background:var(--srf);border:1.5px solid var(--bdr);border-radius:var(--r-lg);
+  padding:1.25rem;position:relative;overflow:hidden;cursor:pointer;
+  transition:transform .2s,box-shadow .2s;
+}
+.car-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg);}
+.car-card.top-pick{border-color:var(--g0);}
+.car-card.top-pick::after{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--g0),var(--g1));
+}
+.car-pick-badge{
+  display:inline-flex;align-items:center;gap:4px;
+  background:var(--g0);color:#fff;
+  font-size:10px;font-weight:700;letter-spacing:.05em;
+  padding:3px 10px;border-radius:20px;margin-bottom:10px;
+}
+.car-cmp-badge{
+  display:inline-flex;align-items:center;
+  background:var(--bg);color:var(--ink4);
+  font-size:10px;font-weight:600;letter-spacing:.05em;
+  padding:3px 10px;border-radius:20px;margin-bottom:10px;
+  border:1px solid var(--bdr);
+}
+.car-emoji{font-size:34px;display:block;margin-bottom:8px;}
+.car-name{font-size:16px;font-weight:700;letter-spacing:-.02em;margin-bottom:2px;}
+.car-model{font-size:11px;color:var(--ink4);margin-bottom:12px;}
+.car-tags{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:14px;}
+.ctag{font-size:10px;font-weight:500;padding:2px 8px;border-radius:20px;background:var(--g2);color:var(--g0);border:1px solid rgba(0,135,90,.15);}
+.car-price-area{border-top:1px solid var(--bdr);padding-top:10px;}
+.car-price-from{font-size:11px;color:var(--ink4);margin-bottom:2px;}
+.car-price{font-size:20px;font-weight:700;letter-spacing:-.02em;}
+.car-price span{font-size:12px;color:var(--ink3);font-weight:400;margin-left:2px;}
+
+/* ── CONDITIONS ── */
+.cond-block{
+  background:var(--srf);border:1px solid var(--bdr);border-radius:var(--r-lg);
+  overflow:hidden;margin-bottom:1.5rem;
+}
+.cond-head{
+  padding:1rem 1.25rem;border-bottom:1px solid var(--bdr);
+  display:flex;align-items:center;gap:10px;
+}
+.cond-head-icon{
+  width:32px;height:32px;border-radius:8px;background:var(--g2);
+  display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;
+}
+.cond-head-title{font-size:13px;font-weight:700;}
+.cond-head-sub{font-size:12px;color:var(--ink3);}
+.cond-body{padding:0 1.25rem;}
+.cond-row{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:11px 0;border-bottom:1px solid var(--bdr);font-size:13px;
+}
+.cond-row:last-child{border-bottom:none;}
+.cond-key{color:var(--ink3);display:flex;align-items:center;gap:5px;}
+.cond-key-icon{font-size:14px;}
+.cond-val{font-weight:600;color:var(--ink);text-align:right;max-width:60%;}
+.cond-val.hl{color:var(--g0);}
+.cond-val.warn{color:var(--o0);}
+
+/* ── TAGOPAY SPECIAL ── */
+.tagopay-box{
+  background:linear-gradient(135deg,var(--o2) 0%,#fff8f5 100%);
+  border:1px solid rgba(196,78,29,.18);border-radius:var(--r-md);
+  padding:1rem 1.25rem;margin-bottom:1.5rem;
+}
+.tagopay-box-title{font-size:13px;font-weight:700;color:var(--o0);margin-bottom:8px;display:flex;align-items:center;gap:6px;}
+.tagopay-calc{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px;}
+.tagopay-calc-item{background:#fff;border:1px solid rgba(196,78,29,.12);border-radius:8px;padding:10px 12px;}
+.tagopay-calc-label{font-size:11px;color:var(--o0);font-weight:600;margin-bottom:4px;}
+.tagopay-calc-val{font-size:16px;font-weight:700;color:var(--ink);}
+.tagopay-calc-sub{font-size:11px;color:var(--ink4);margin-top:2px;}
+
+/* ── COMPARE TABLE ── */
+.cmp-table-wrap{
+  background:var(--srf);border:1px solid var(--bdr);border-radius:var(--r-lg);
+  overflow:hidden;margin-bottom:1.5rem;
+}
+.cmp-table{width:100%;border-collapse:collapse;font-size:12px;}
+.cmp-table th{
+  padding:10px 12px;font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;
+  background:var(--bg);color:var(--ink3);text-align:left;border-bottom:1px solid var(--bdr);
+}
+.cmp-table th.active-col{background:var(--g2);color:var(--g0);}
+.cmp-table td{padding:10px 12px;border-bottom:1px solid var(--bdr);color:var(--ink2);}
+.cmp-table tr:last-child td{border-bottom:none;}
+.cmp-table td.active-col{background:rgba(230,244,238,.4);font-weight:600;color:var(--ink);}
+.cmp-table td:first-child{color:var(--ink3);font-weight:500;}
+
+/* ── TRUST SECTION ── */
+.trust-section{
+  background:var(--srf);border:1px solid var(--bdr);border-radius:var(--r-lg);
+  padding:1.25rem;margin-bottom:1.5rem;
+}
+.trust-title{font-size:13px;font-weight:700;margin-bottom:12px;color:var(--ink);}
+.steps-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+.step-item{text-align:center;padding:10px 8px;}
+.step-num{
+  width:28px;height:28px;border-radius:50%;background:var(--g0);color:#fff;
+  font-size:12px;font-weight:700;display:inline-flex;align-items:center;justify-content:center;
+  margin-bottom:7px;
+}
+.step-name{font-size:12px;font-weight:700;color:var(--ink);margin-bottom:3px;}
+.step-desc{font-size:11px;color:var(--ink4);line-height:1.4;}
+.cancel-note{
+  font-size:12px;color:var(--ink4);text-align:center;
+  padding-top:10px;border-top:1px solid var(--bdr);margin-top:10px;
+}
+
+/* ── CTA ── */
+.cta-block{
+  background:linear-gradient(135deg,#1a1a1a 0%,#2d2d2d 100%);
+  border-radius:var(--r-lg);padding:1.75rem 1.5rem;
+  display:flex;align-items:center;justify-content:space-between;gap:1.5rem;
+  flex-wrap:wrap;margin-bottom:1rem;
+}
+.cta-text h3{font-size:16px;font-weight:700;color:#fff;margin-bottom:4px;}
+.cta-text p{font-size:12px;color:rgba(255,255,255,.5);}
+.btn-cta{
+  background:var(--g0);color:#fff;font-size:14px;font-weight:700;
+  padding:12px 26px;border-radius:100px;border:none;cursor:pointer;
+  white-space:nowrap;font-family:'Noto Sans KR',sans-serif;
+  transition:background .15s;
+}
+.btn-cta:hover{background:var(--g1);}
+.btn-restart{
+  display:block;width:100%;text-align:center;
+  font-size:12px;color:var(--ink4);padding:10px;
+  background:none;border:none;cursor:pointer;
+  font-family:'Noto Sans KR',sans-serif;
+  text-decoration:underline;text-underline-offset:3px;
+}
+.btn-restart:hover{color:var(--ink3);}
+
+/* ── DIVIDER ── */
+hr.div{border:none;border-top:1px solid var(--bdr);margin:1.5rem 0;}
+.section-label{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink4);margin-bottom:.75rem;}
+
+/* ── UTILS ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+.anim{animation:fadeUp .3s ease;}
+
+@media(max-width:560px){
+  .opts{grid-template-columns:1fr 1fr;}
+  .opts.three{grid-template-columns:1fr 1fr;}
+  .car-grid{grid-template-columns:1fr;}
+  .steps-row{grid-template-columns:1fr;}
+  .cta-block{flex-direction:column;text-align:center;}
+  .product-tabs{flex-direction:column;}
+  .tagopay-calc{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <div class="logo-mark">
+      <svg viewBox="0 0 16 16" fill="none"><path d="M3 8 C3 5 5 3 8 3 C11 3 13 5 13 8" stroke="white" stroke-width="2" stroke-linecap="round"/><circle cx="8" cy="11" r="2" fill="white"/></svg>
+    </div>
+    <span class="logo-text"><span>SK</span>다이렉트</span>
+  </div>
+  <span class="header-info" id="header-info">신차 큐레이션</span>
+</header>
+
+<!-- ══════════════ HERO ══════════════ -->
+<section class="screen active" id="s-hero">
+  <div style="max-width:700px;margin:0 auto;padding:4rem 1.5rem 3rem;display:flex;flex-direction:column;align-items:center;justify-content:center;flex:1;">
+    <div class="hero-eyebrow">
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="5" stroke="#00875A" stroke-width="1.5"/><path d="M4 6l1.5 1.5L8 4" stroke="#00875A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      AI 맞춤 추천 · 3분 완성
+    </div>
+    <h1 class="hero-h1">내게 딱 맞는 신차,<br><em>지금 바로 찾아드려요.</em></h1>
+    <p class="hero-sub">몇 가지 질문으로 라이프스타일에 맞는 차량과 렌탈 조건을 추천해드려요. 복잡한 필터 없이 3분이면 충분해요.</p>
+    <button class="btn-hero" onclick="startQuiz()">
+      추천 시작하기
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </button>
+    <div class="hero-features">
+      <div class="hero-feat"><div class="hero-feat-dot"></div>신차장기렌트</div>
+      <div class="hero-feat"><div class="hero-feat-dot"></div>1년렌트</div>
+      <div class="hero-feat"><div class="hero-feat-dot"></div>타고PAY플러스</div>
+      <div class="hero-feat"><div class="hero-feat-dot"></div>셀프계약 가능</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ QUIZ ══════════════ -->
+<section class="screen" id="s-quiz">
+  <div class="quiz-wrap">
+
+    <!-- 진행 바 -->
+    <div class="progress-shell">
+      <div class="progress-steps" id="prog-steps">
+        <div class="ps-item active" id="pi0"><div class="ps-num">1</div><div class="ps-line"></div></div>
+        <div class="ps-item" id="pi1"><div class="ps-num">2</div><div class="ps-line"></div></div>
+        <div class="ps-item" id="pi2"><div class="ps-num">3</div><div class="ps-line"></div></div>
+        <div class="ps-item" id="pi3"><div class="ps-num">4</div><div class="ps-line"></div></div>
+        <div class="ps-item" id="pi4"><div class="ps-num">5</div></div>
+      </div>
+      <div class="ps-labels">
+        <div class="ps-label-wrap"><div class="ps-label" id="pl0">이용목적</div></div>
+        <div class="ps-label-wrap"><div class="ps-label" id="pl1">이용스타일</div></div>
+        <div class="ps-label-wrap"><div class="ps-label" id="pl2">예산</div></div>
+        <div class="ps-label-wrap"><div class="ps-label" id="pl3">연료</div></div>
+        <div class="ps-label-wrap"><div class="ps-label" id="pl4">인원</div></div>
+      </div>
+    </div>
+
+    <!-- Q1 이용목적 -->
+    <div class="q-step anim" id="q1">
+      <p class="q-kicker">질문 01 / 05</p>
+      <h2 class="q-title">주로 어떤 상황에서<br>차를 타실 예정인가요?</h2>
+      <p class="q-sub">라이프스타일에 맞는 차종을 추천해드려요.</p>
+      <div class="opts" id="opts-q1">
+        <div class="opt" onclick="pick('q1','commute',this)">
+          <div class="opt-check"><svg viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="2.5"><polyline points="1.5,6 5,9.5 10.5,2.5"/></svg></div>
+          <span class="opt-icon">🚗</span>
+          <span class="opt-label">출퇴근 · 혼자</span>
+          <span class="opt-desc">연비, 편의성, 경제성 중심</span>
+        </div>
+        <div class="opt" onclick="pick('q1','family',this)">
+          <div class="opt-check"><svg viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="2.5"><polyline points="1.5,6 5,9.5 10.5,2.5"/></svg></div>
+          <span class="opt-icon">👨‍👩‍👧‍👦</span>
+          <span class="opt-label">가족 · 주말 드라이브</span>
+          <span class="opt-desc">공간, 안전, 7인승 고려</span>
+        </div>
+        <div class="opt" onclick="pick('q1','business',this)">
+          <div class="opt-check"><svg viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="2.5"><polyline points="1.5,6 5,9.5 10.5,2.5"/></svg></div>
+          <span class="opt-icon">💼</span>
+          <span class="opt-label">비즈니스 · 미팅</span>
+          <span class="opt-desc">고급감, 브랜드, 외관 우선</span>
+        </div>
+        <div class="opt" onclick="pick('q1','leisure',this)">
+          <div class="opt-check"><svg viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="2.5"><polyline points="1.5,6 5,9.5 10.5,2.5"/></svg></div>
+          <span class="opt-icon">🏕️</span>
+          <span class="opt-label">캠핑 · 아웃도어</span>
+          <span class="opt-desc">SUV, AWD, 넓은 적재공간</span>
+        </div>
+      </div>
+      <div class="btn-row">
+        <button class="btn-back" onclick="goHero()">← 처음으로</button>
+        <button class="btn-next" id="btn-q1" onclick="goQ(2)" disabled>
+          다음 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Q2 이용스타일 -->
+    <div class="q-step anim" id="q2" style="display:none;">
+      <p class="q-kicker">질문 02 / 05</p>
+      <h2 class="q-title">차를 어떻게<br>이용하실 계획인가요?</h2>
+      <p class="q-sub">이 선택에 따라 가장 맞는 상품을 추천해드려요.</p>
+      <div class="opts" id="opts-q2" style="grid-template-columns:1fr;">
+        <div class="opt" onclick="pick('q2','longterm',this)">
+          <div class="opt-check"><svg viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="2.5"><polyline points="1.5,6 5,9.5 10.5,2.5"/></svg></div>
+          <span class="opt-icon">💰</span>
+          <span class="opt-label">오래 타면서 비용 아끼기</span>
+          <span class="opt-desc">월 렌탈료를 최대한 낮추고 싶어요. 36개월 이상 안정적으로 타고 싶은 분.</span>
+          <span class="opt-badge badge-green">→ 신차장기렌트 추천</span>
+        </div>
+        <div class="opt" onclick="pick('q2','shortterm',this)">
+          <div class="opt-check"><svg viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="2.5"><polyline points="1.5,6 5,9.5 10.5,2.5"/></svg></div>
+          <span class="opt-icon">🗓️</span>
+          <span class="opt-label">1년만 타보고 결정할게요</span>
+          <span class="opt-desc">처음이라 길게 묶이기 부담돼요. 12개월 후 자유롭게 반납하거나 바꾸고 싶은 분.</span>
+          <span class="opt-badge badge-blue">→ 1년렌트 추천</span>
+        </div>
+        <div class="opt" onclick="pick('q2','tagopay',this)">
+          <div class="opt-check"><svg viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="2.5"><polyline points="1.5,6 5,9.5 10.5,2.5"/></svg></div>
+          <span class="opt-icon">⚡</span>
+          <span class="opt-label">차를 많이 안 타는 편이에요</span>
+          <span class="opt-desc">탄 만큼만 내고 1~2년 후 새 차로 바꾸고 싶어요.</span>
+          <div class="q-note" style="margin-top:7px;margin-bottom:0;">📍 연 1만km 이하 예상되시는 분께 최적</div>
+          <span class="opt-badge badge-orange">→ 타고PAY플러스 추천</span>
+        </div>
+      </div>
+      <div class="btn-row" style="margin-top:1.5rem;">
+        <button class="btn-back" onclick="goQ(1)">← 이전</button>
+        <button class="btn-next" id="btn-q2" onclick="goQ(3)" disabled>
+          다음 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Q3 예산 -->
+    <div class="q-step anim" id="q3" style="display:none;">
+      <p class="q-kicker">질문 03 / 05</p>
+      <h2 class="q-title">한 달에 얼마 정도<br>생각하고 계세요?</h2>
+      <p class="q-sub">보증금 제외, 월 렌탈료 기준이에요.</p>
+      <div class="opts" id="opts-q3">
+        <div class="opt" onclick="pick('q3','budget',this)">
+          <div class="opt-check"><svg viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="2.5"><polyline points="1.5,6 5,9.5 10.5,2.5"/></svg></div>
+          <span class="opt-icon">💚</span>
+          <span class="opt-label">40만원 이하</span>
+          <span class="opt-desc">합리적인 입문형</span>
+        </div>
+        <div class="opt" onclick="pick('q3','mid',this)">
+          <div class="opt-check"><svg viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="2.5"><polyline points="1.5,6 5,9.5 10.5,2.5"/></svg></div>
+          <span class="opt-icon">💛</span>
+          <span class="opt-label">40 ~ 70만원</span>
+          <span class="opt-desc">가성비 중형 · SUV</span>
+        </div>
+        <div class="opt" onclick="pick('q3','upper',this)">
+          <div class="opt-check"><svg viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="2.5"><polyline points="1.5,6 5,9.5 10.5,2.5"/></svg></div>
+          <span class="opt-icon">🧡</span>
+          <span class="opt-label">70 ~ 100만원</span>
+          <span class="opt-desc">프리미엄 중형</span>
+        </div>
+        <div class="opt" onclick="pick('q3','premium',this)">
+          <div class="opt-check"><svg viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="2.5"><polyline points="1.5,6 5,9.5 10.5,2.5"/></svg></div>
+          <span class="opt-icon">❤️</span>
+          <span class="opt-label">100만원 이상</span>
+          <span class="opt-desc">럭셔리 · 수입차</span>
+        </div>
+      </div>
+      <div class="btn-row">
+        <button class="btn-back" onclick="goQ(2)">← 이전</button>
+        <button class="btn-next" id="btn-q3" onclick="goQ(4)" disabled>
+          다음 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Q4 연료 -->
+    <div class="q-step anim" id="q4" style="display:none;">
+      <p class="q-kicker">질문 04 / 05</p>
+      <h2 class="q-title">연료 방식<br>선호가 있으신가요?</h2>
+      <p class="q-sub">충전 환경이나 연비 중요도에 따라 선택해주세요.</p>
+      <div class="opts" id="opts-q4">
+        <div class="opt" onclick="pick('q4','ev',this)">
+          <div class="opt-check"><svg viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="2.5"><polyline points="1.5,6 5,9.5 10.5,2.5"/></svg></div>
+          <span class="opt-icon">⚡</span>
+          <span class="opt-label">전기차 (EV)</span>
+          <span class="opt-desc">충전 환경 OK, 친환경 우선</span>
+        </div>
+        <div class="opt" onclick="pick('q4','hybrid',this)">
+          <div class="opt-check"><svg viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="2.5"><polyline points="1.5,6 5,9.5 10.5,2.5"/></svg></div>
+          <span class="opt-icon">🔋</span>
+          <span class="opt-label">하이브리드</span>
+          <span class="opt-desc">연비 중시, 충전 부담 없이</span>
+        </div>
+        <div class="opt" onclick="pick('q4','gas',this)">
+          <div class="opt-check"><svg viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="2.5"><polyline points="1.5,6 5,9.5 10.5,2.5"/></svg></div>
+          <span class="opt-icon">⛽</span>
+          <span class="opt-label">가솔린 · 디젤</span>
+          <span class="opt-desc">일반 주유, 폭넓은 선택</span>
+        </div>
+        <div class="opt" onclick="pick('q4','any',this)">
+          <div class="opt-check"><svg viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="2.5"><polyline points="1.5,6 5,9.5 10.5,2.5"/></svg></div>
+          <span class="opt-icon">🤷</span>
+          <span class="opt-label">상관없어요</span>
+          <span class="opt-desc">조건에 맞는 최적 차량으로</span>
+        </div>
+      </div>
+      <div class="btn-row">
+        <button class="btn-back" onclick="goQ(3)">← 이전</button>
+        <button class="btn-next" id="btn-q4" onclick="goQ(5)" disabled>
+          다음 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Q5 인원 (skip 가능) -->
+    <div class="q-step anim" id="q5" style="display:none;">
+      <p class="q-kicker">질문 05 / 05</p>
+      <h2 class="q-title">주로 몇 명이서<br>타시나요?</h2>
+      <p class="q-sub">건너뛰어도 괜찮아요.</p>
+      <div class="opts three" id="opts-q5">
+        <div class="opt" onclick="pick('q5','solo',this)">
+          <div class="opt-check"><svg viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="2.5"><polyline points="1.5,6 5,9.5 10.5,2.5"/></svg></div>
+          <span class="opt-icon">👤</span>
+          <span class="opt-label">나 혼자 / 2명</span>
+          <span class="opt-desc">소형·경형</span>
+        </div>
+        <div class="opt" onclick="pick('q5','normal',this)">
+          <div class="opt-check"><svg viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="2.5"><polyline points="1.5,6 5,9.5 10.5,2.5"/></svg></div>
+          <span class="opt-icon">👨‍👩‍👦</span>
+          <span class="opt-label">3 ~ 4명</span>
+          <span class="opt-desc">일반 세단·SUV</span>
+        </div>
+        <div class="opt" onclick="pick('q5','large',this)">
+          <div class="opt-check"><svg viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="2.5"><polyline points="1.5,6 5,9.5 10.5,2.5"/></svg></div>
+          <span class="opt-icon">👨‍👩‍👧‍👦</span>
+          <span class="opt-label">5명 이상</span>
+          <span class="opt-desc">미니밴·대형 SUV</span>
+        </div>
+      </div>
+      <div class="btn-row" style="margin-top:1.5rem;">
+        <button class="btn-back" onclick="goQ(4)">← 이전</button>
+        <button class="btn-next" id="btn-q5" onclick="showResult()" disabled>
+          결과 보기 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+        <button class="btn-skip" onclick="showResult()">건너뛰기</button>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════ RESULT ══════════════ -->
+<section class="screen" id="s-result">
+  <div class="result-wrap">
+    <p class="result-kicker">추천 결과</p>
+    <h2 class="result-title" id="r-title">맞춤 차량을 찾았어요</h2>
+    <p class="result-sub" id="r-sub">선택하신 조건을 기반으로 최적 차량과 상품을 추천해드려요.</p>
+
+    <div class="chips" id="r-chips"></div>
+
+    <!-- 상품 탭 -->
+    <p class="section-label">추천 상품</p>
+    <div class="product-tabs" id="r-tabs"></div>
+
+    <!-- Why 카드 -->
+    <div class="why-card" id="r-why"></div>
+
+    <!-- 차량 카드 -->
+    <p class="section-label">추천 차량</p>
+    <div class="car-grid" id="r-cars"></div>
+
+    <!-- 타고PAY 전용 박스 -->
+    <div id="r-tagopay-box" style="display:none;"></div>
+
+    <!-- 조건 요약 -->
+    <p class="section-label">렌탈 조건 한눈에 보기</p>
+    <div class="cond-block">
+      <div class="cond-head">
+        <div class="cond-head-icon">📋</div>
+        <div><div class="cond-head-title" id="r-cond-title">조건 요약</div><div class="cond-head-sub" id="r-cond-sub"></div></div>
+      </div>
+      <div class="cond-body" id="r-cond-body"></div>
+    </div>
+
+    <!-- 상품 비교 -->
+    <p class="section-label">3개 상품 조건 비교</p>
+    <div class="cmp-table-wrap">
+      <table class="cmp-table" id="r-cmp-table"></table>
+    </div>
+
+    <!-- 셀프계약 안내 -->
+    <div class="trust-section">
+      <p class="trust-title">셀프계약 3단계로 끝나요</p>
+      <div class="steps-row">
+        <div class="step-item">
+          <div class="step-num">1</div>
+          <div class="step-name">차량 선택</div>
+          <div class="step-desc">원하는 차량과 조건 선택</div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">2</div>
+          <div class="step-name">정보 입력</div>
+          <div class="step-desc">신청서 작성 (10분 내외)</div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">3</div>
+          <div class="step-name">계약 완료</div>
+          <div class="step-desc">심사 후 출고 일정 안내</div>
+        </div>
+      </div>
+      <div class="cancel-note">계약 후 3영업일 이내 취소 가능 · 보증금 전액 환급</div>
+    </div>
+
+    <!-- CTA -->
+    <div class="cta-block">
+      <div class="cta-text">
+        <h3>지금 바로 셀프계약 시작하세요</h3>
+        <p>상담원 연결 없이 온라인으로 간편하게</p>
+      </div>
+      <button class="btn-cta" onclick="alert('실 서비스 연동 시 계약 페이지로 이동합니다.')">셀프계약 시작하기 →</button>
+    </div>
+    <button class="btn-restart" onclick="restart()">처음부터 다시 추천받기</button>
+  </div>
+</section>
+
+<script>
+// ── STATE ──
+const ans = {};
+
+// ── PRODUCT DATA ──
+const PRODUCTS = {
+  longterm: {
+    key:'longterm', label:'신차장기렌트', emoji:'📅',
+    why: {
+      commute:'출퇴근 차량은 오래 탈수록 유리해요. 48개월 계약으로 월 렌탈료를 최대한 낮추세요.',
+      family:'가족과 함께 오래 탈 차라면 장기렌트가 가장 경제적이에요. 48개월 기준으로 월 비용이 제일 낮아요.',
+      business:'비즈니스 차량은 안정적인 장기 계약이 유리해요. 48개월 약정으로 이미지도, 비용도 잡으세요.',
+      leisure:'아웃도어 차량은 오래 탈수록 가성비가 좋아요. 장기렌트로 월 비용을 최소화하세요.'
+    }
+  },
+  shortterm: {
+    key:'shortterm', label:'1년렌트', emoji:'🗓️',
+    why: {
+      commute:'처음 렌트라면 1년렌트로 시작해보세요. 12개월 후 마음이 바뀌어도 부담 없이 갈아탈 수 있어요.',
+      family:'가족 차를 1년 먼저 체험해보세요. 마음에 들면 재계약, 바꾸고 싶으면 자유롭게 반납 가능해요.',
+      business:'비즈니스 차량을 1년 단위로 유연하게 운영하세요. 회사 상황에 따라 매년 조정할 수 있어요.',
+      leisure:'아웃도어 차를 1년 먼저 타보고 결정하세요. 생각보다 덜 타게 되면 다음엔 타고PAY도 고려해보세요.'
+    }
+  },
+  tagopay: {
+    key:'tagopay', label:'타고PAY플러스', emoji:'⚡',
+    why: {
+      commute:'출퇴근 거리가 짧다면 타고PAY가 유리할 수 있어요. 연 1만km 이하라면 탄 만큼만 내고 절약하세요.',
+      family:'가족 나들이 위주라면 타고PAY를 검토해보세요. 연 1만km 이하 저마일리지라면 가장 유리한 구조예요.',
+      business:'미팅 이동이 많지 않다면 타고PAY로 비용을 절약하세요. 1~2년 후 더 좋은 차로 교체도 가능해요.',
+      leisure:'주말 캠핑 위주라면 타고PAY가 적합할 수 있어요. 연 1만km 이하 예상되시면 탄 만큼만 내는 구조가 유리해요.'
+    }
+  }
+};
+
+// ── CAR DATABASE ──
+const CARS = {
+  commute:{
+    budget:[
+      {emoji:'🚙',name:'아반떼',model:'Avante 1.6 가솔린',tags:['연비 우수','입문 추천'],prices:{longterm:'33만원~',shortterm:'41만원~',tagopay:'27만원~'},top:true},
+      {emoji:'🚗',name:'K3',model:'K3 1.6 LPi',tags:['유지비 절감','도심 최적'],prices:{longterm:'31만원~',shortterm:'39만원~',tagopay:'25만원~'},top:false}
+    ],
+    mid:[
+      {emoji:'🚙',name:'소나타 하이브리드',model:'Sonata 2.0 HEV',tags:['하이브리드','공간감'],prices:{longterm:'52만원~',shortterm:'63만원~',tagopay:'43만원~'},top:true},
+      {emoji:'🚗',name:'K5',model:'K5 2.0 가솔린',tags:['세련된 디자인','넉넉한 트렁크'],prices:{longterm:'49만원~',shortterm:'60만원~',tagopay:'40만원~'},top:false}
+    ],
+    upper:[
+      {emoji:'🚙',name:'그랜저 하이브리드',model:'Grandia 3.5 HEV',tags:['준대형','승차감'],prices:{longterm:'78만원~',shortterm:'94만원~',tagopay:'63만원~'},top:true},
+      {emoji:'🚗',name:'K8',model:'K8 2.5 가솔린',tags:['넓은 실내','고급 인포테인먼트'],prices:{longterm:'75만원~',shortterm:'91만원~',tagopay:'61만원~'},top:false}
+    ],
+    premium:[
+      {emoji:'🚙',name:'제네시스 G80',model:'G80 2.5T AWD',tags:['프리미엄','브랜드 가치'],prices:{longterm:'105만원~',shortterm:'126만원~',tagopay:null},top:true},
+      {emoji:'🚗',name:'BMW 5시리즈',model:'520i M Sport',tags:['수입차','주행감'],prices:{longterm:'118만원~',shortterm:'141만원~',tagopay:null},top:false}
+    ]
+  },
+  family:{
+    budget:[
+      {emoji:'🚐',name:'레이',model:'Ray 1.0 가솔린',tags:['넓은 실내','경차 혜택'],prices:{longterm:'28만원~',shortterm:'35만원~',tagopay:'23만원~'},top:true},
+      {emoji:'🚙',name:'스파크',model:'Spark 1.0',tags:['주차 편리','도심형'],prices:{longterm:'26만원~',shortterm:'33만원~',tagopay:'21만원~'},top:false}
+    ],
+    mid:[
+      {emoji:'🚐',name:'카니발',model:'Kia Carnival 2.2D',tags:['9인승','가족 필수'],prices:{longterm:'65만원~',shortterm:'79만원~',tagopay:'53만원~'},top:true},
+      {emoji:'🚙',name:'쏘렌토 하이브리드',model:'Sorento 1.6T HEV',tags:['하이브리드 SUV','7인승'],prices:{longterm:'62만원~',shortterm:'75만원~',tagopay:'50만원~'},top:false}
+    ],
+    upper:[
+      {emoji:'🚐',name:'스타리아',model:'Staria 3.5 가솔린',tags:['대용량','캠핑'],prices:{longterm:'72만원~',shortterm:'87만원~',tagopay:'58만원~'},top:true},
+      {emoji:'🚙',name:'팰리세이드',model:'Palisade 2.2D AWD',tags:['대형 SUV','AWD'],prices:{longterm:'79만원~',shortterm:'96만원~',tagopay:'64만원~'},top:false}
+    ],
+    premium:[
+      {emoji:'🚐',name:'카니발 하이리무진',model:'Carnival Hi Limousine',tags:['VIP 시트','최고급'],prices:{longterm:'110만원~',shortterm:'132만원~',tagopay:null},top:true},
+      {emoji:'🚙',name:'제네시스 GV80',model:'GV80 2.5T',tags:['럭셔리 SUV','컴포트'],prices:{longterm:'115만원~',shortterm:'138만원~',tagopay:null},top:false}
+    ]
+  },
+  business:{
+    budget:[
+      {emoji:'🚗',name:'아반떼 N Line',model:'Avante N Line 1.6T',tags:['스포티','젊은 비즈니스'],prices:{longterm:'38만원~',shortterm:'46만원~',tagopay:'31만원~'},top:true},
+      {emoji:'🚙',name:'K3 세단',model:'K3 1.6 터보',tags:['단정한 외관','편의장비'],prices:{longterm:'36만원~',shortterm:'44만원~',tagopay:'29만원~'},top:false}
+    ],
+    mid:[
+      {emoji:'🚗',name:'쏘나타 센슈어스',model:'Sonata 1.6T',tags:['세련된 외관','첨단 편의'],prices:{longterm:'55만원~',shortterm:'67만원~',tagopay:'45만원~'},top:true},
+      {emoji:'🚙',name:'K5 GT-Line',model:'K5 2.0T',tags:['스포티 세단','기업 이미지'],prices:{longterm:'57만원~',shortterm:'69만원~',tagopay:'46만원~'},top:false}
+    ],
+    upper:[
+      {emoji:'🚗',name:'그랜저',model:'Grandia 3.5 가솔린',tags:['대표 비즈니스카','품격'],prices:{longterm:'80만원~',shortterm:'97만원~',tagopay:'65만원~'},top:true},
+      {emoji:'🚙',name:'K8 플래티넘',model:'K8 3.5 가솔린',tags:['플래그십','임원 의전'],prices:{longterm:'85만원~',shortterm:'102만원~',tagopay:'69만원~'},top:false}
+    ],
+    premium:[
+      {emoji:'🚗',name:'제네시스 G90',model:'G90 3.5T AWD',tags:['최상위 의전','아이콘'],prices:{longterm:'145만원~',shortterm:'174만원~',tagopay:null},top:true},
+      {emoji:'🚙',name:'벤츠 E-Class',model:'E300 AMG Line',tags:['수입 비즈니스','글로벌'],prices:{longterm:'140만원~',shortterm:'168만원~',tagopay:null},top:false}
+    ]
+  },
+  leisure:{
+    budget:[
+      {emoji:'🛻',name:'셀토스',model:'Celtus 1.6T AWD',tags:['소형 SUV','가성비'],prices:{longterm:'42만원~',shortterm:'51만원~',tagopay:'34만원~'},top:true},
+      {emoji:'🚙',name:'코나',model:'Kona 1.6T',tags:['아웃도어 입문','개성'],prices:{longterm:'40만원~',shortterm:'49만원~',tagopay:'33만원~'},top:false}
+    ],
+    mid:[
+      {emoji:'🛻',name:'투싼 하이브리드',model:'Tucson 1.6T HEV AWD',tags:['하이브리드','AWD'],prices:{longterm:'60만원~',shortterm:'73만원~',tagopay:'49만원~'},top:true},
+      {emoji:'🚙',name:'스포티지 하이브리드',model:'Sportage 1.6T HEV',tags:['아웃도어','인기 모델'],prices:{longterm:'58만원~',shortterm:'70만원~',tagopay:'47만원~'},top:false}
+    ],
+    upper:[
+      {emoji:'🛻',name:'싼타페',model:'Santa Fe 2.5T AWD',tags:['대형 SUV','캠핑 특화'],prices:{longterm:'76만원~',shortterm:'92만원~',tagopay:'62만원~'},top:true},
+      {emoji:'🚙',name:'모하비',model:'Mohave 3.0D',tags:['정통 4WD','강인함'],prices:{longterm:'82만원~',shortterm:'99만원~',tagopay:'67만원~'},top:false}
+    ],
+    premium:[
+      {emoji:'🛻',name:'레인지로버 이보크',model:'Evoque P250',tags:['럭셔리 오프로드','프리미엄'],prices:{longterm:'125만원~',shortterm:'150만원~',tagopay:null},top:true},
+      {emoji:'🚙',name:'포르쉐 마칸',model:'Macan T 2.0T',tags:['스포츠 SUV','독일차'],prices:{longterm:'155만원~',shortterm:'186만원~',tagopay:null},top:false}
+    ]
+  }
+};
+
+const PURPOSE_LABEL={commute:'출퇴근·혼자',family:'가족·주말',business:'비즈니스',leisure:'캠핑·아웃도어'};
+const BUDGET_LABEL={budget:'40만원 이하',mid:'40~70만원',upper:'70~100만원',premium:'100만원+'};
+const FUEL_LABEL={ev:'전기차',hybrid:'하이브리드',gas:'가솔린·디젤',any:'연료 무관'};
+const SEAT_LABEL={solo:'1~2명',normal:'3~4명',large:'5명 이상'};
+const PRODUCT_ORDER=['longterm','shortterm','tagopay'];
+
+// ── INTERACTION ──
+function pick(qKey, val, el){
+  ans[qKey]=val;
+  el.closest('.opts,.q-step').querySelectorAll('.opt').forEach(o=>o.classList.remove('sel'));
+  el.classList.add('sel');
+  const btn=document.getElementById('btn-'+qKey);
+  if(btn) btn.disabled=false;
+}
+
+function updateProgress(cur){
+  for(let i=1;i<=5;i++){
+    const pi=document.getElementById('pi'+(i-1));
+    const pl=document.getElementById('pl'+(i-1));
+    pi.classList.remove('active','done');
+    pl.classList.remove('active','done');
+    if(i<cur){pi.classList.add('done');pl.classList.add('done');}
+    else if(i===cur){pi.classList.add('active');pl.classList.add('active');}
+  }
+  document.getElementById('header-info').textContent=`${cur} / 5단계`;
+}
+
+function goHero(){
+  document.getElementById('s-quiz').classList.remove('active');
+  document.getElementById('s-hero').classList.add('active');
+  document.getElementById('header-info').textContent='신차 큐레이션';
+}
+
+function startQuiz(){
+  document.getElementById('s-hero').classList.remove('active');
+  document.getElementById('s-quiz').classList.add('active');
+  showStep(1);
+}
+
+function showStep(n){
+  for(let i=1;i<=5;i++) document.getElementById('q'+i).style.display='none';
+  const el=document.getElementById('q'+n);
+  el.style.display='block';
+  el.classList.remove('anim');
+  void el.offsetWidth;
+  el.classList.add('anim');
+  updateProgress(n);
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function goQ(n){
+  if(n>=1 && n<=5) showStep(n);
+  else if(n>5) showResult();
+}
+
+function showResult(){
+  const purpose=ans.q1||'commute';
+  const style=ans.q2||'longterm';
+  const budget=ans.q3||'mid';
+  const fuel=ans.q4||'any';
+  const seat=ans.q5||null;
+
+  document.getElementById('s-quiz').classList.remove('active');
+  document.getElementById('s-result').classList.add('active');
+  document.getElementById('header-info').textContent='추천 결과';
+  window.scrollTo({top:0,behavior:'smooth'});
+
+  // chips
+  const chipsEl=document.getElementById('r-chips');
+  const chipData=[
+    PURPOSE_LABEL[purpose], BUDGET_LABEL[budget], FUEL_LABEL[fuel],
+    seat?SEAT_LABEL[seat]:null, style==='tagopay'?'연 1만km 이하':null
+  ].filter(Boolean);
+  chipsEl.innerHTML=chipData.map(c=>`<span class="chip">${c}</span>`).join('');
+
+  // tabs
+  renderTabs(style, purpose, budget, fuel);
+
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function renderTabs(activeKey, purpose, budget, fuel){
+  const tabsEl=document.getElementById('r-tabs');
+  const tagopayAvailable = budget!=='premium';
+
+  tabsEl.innerHTML=PRODUCT_ORDER.map(k=>{
+    const p=PRODUCTS[k];
+    const disabled=(k==='tagopay'&&!tagopayAvailable);
+    const isActive=k===activeKey&&!disabled;
+    return `<div class="ptab${isActive?' active':''}${disabled?' disabled':''}" 
+      onclick="${disabled?'':''}"
+      style="${disabled?'opacity:.4;cursor:not-allowed;':''}"
+      ${disabled?'':(`onclick="switchTab('${k}','${purpose}','${budget}','${fuel}')"`)}>
+      <span class="ptab-label">${p.emoji} ${p.label}</span>
+      ${k==='longterm'?`<div class="ptab-why">36~60개월 장기약정</div>`:''}
+      ${k==='shortterm'?`<div class="ptab-why">12개월 단기</div>`:''}
+      ${k==='tagopay'?`<div class="ptab-why">${disabled?'100만원+ 미해당':'연 1만km 저마일리지'}</div>`:''}
+    </div>`;
+  }).join('');
+
+  renderResultContent(activeKey, purpose, budget, fuel);
+}
+
+function switchTab(key, purpose, budget, fuel){
+  document.querySelectorAll('.ptab').forEach(t=>t.classList.remove('active'));
+  event.currentTarget.classList.add('active');
+  renderResultContent(key, purpose, budget, fuel);
+}
+
+function renderResultContent(productKey, purpose, budget, fuel){
+  const prod=PRODUCTS[productKey];
+  const cars=(CARS[purpose]&&CARS[purpose][budget])||CARS.commute.mid;
+  const purposeLabel=PURPOSE_LABEL[purpose];
+
+  // why card
+  const whyText=prod.why[purpose]||prod.why.commute;
+  document.getElementById('r-why').innerHTML=`
+    <div class="why-icon">${prod.emoji}</div>
+    <div>
+      <div class="why-title">${prod.label}을 추천하는 이유</div>
+      <div class="why-text">${whyText}</div>
+    </div>`;
+
+  // car cards
+  const carsEl=document.getElementById('r-cars');
+  carsEl.innerHTML=cars.map(c=>{
+    const priceStr=c.prices[productKey]||(productKey==='tagopay'?'해당없음':c.prices.longterm);
+    const noTagopay=(productKey==='tagopay'&&c.prices.tagopay===null);
+    return `<div class="car-card${c.top?' top-pick':''}">
+      ${c.top?`<div class="car-pick-badge">✦ 1순위 추천</div>`:`<div class="car-cmp-badge">비교 차량</div>`}
+      <span class="car-emoji">${c.emoji}</span>
+      <div class="car-name">${c.name}</div>
+      <div class="car-model">${c.model}</div>
+      <div class="car-tags">${c.tags.map(t=>`<span class="ctag">${t}</span>`).join('')}</div>
+      <div class="car-price-area">
+        <div class="car-price-from">월 렌탈료 (${productKey==='longterm'?'48개월 기준':productKey==='shortterm'?'12개월 기준':'연 1만km 기준'})</div>
+        <div class="car-price">${noTagopay?'—':priceStr} <span>${noTagopay?'이 상품 미해당':'/ 월'}</span></div>
+      </div>
+    </div>`;
+  }).join('');
+
+  // tagopay box
+  const tagopayBox=document.getElementById('r-tagopay-box');
+  if(productKey==='tagopay'){
+    tagopayBox.style.display='block';
+    const basePrice=cars[0].prices.tagopay||'25만원~';
+    tagopayBox.innerHTML=`
+      <div class="tagopay-box">
+        <div class="tagopay-box-title">⚡ 타고PAY플러스 — 저마일리지 요금 구조</div>
+        <div style="font-size:13px;color:#666;line-height:1.6;margin-bottom:10px;">
+          연 1만km 이하 기준으로 월 렌탈료가 책정돼요. <strong>많이 안 탈수록 유리한 구조</strong>예요. 초과 주행 시 km당 추가 요금이 발생하므로 주행거리 관리가 중요해요.
+        </div>
+        <div class="tagopay-calc">
+          <div class="tagopay-calc-item">
+            <div class="tagopay-calc-label">기준 주행거리</div>
+            <div class="tagopay-calc-val">연 10,000km</div>
+            <div class="tagopay-calc-sub">하루 평균 약 27km</div>
+          </div>
+          <div class="tagopay-calc-item">
+            <div class="tagopay-calc-label">기준 월 렌탈료</div>
+            <div class="tagopay-calc-val">${basePrice}</div>
+            <div class="tagopay-calc-sub">장기렌트 대비 약 20% 저렴</div>
+          </div>
+          <div class="tagopay-calc-item">
+            <div class="tagopay-calc-label">초과 시 추가 요금</div>
+            <div class="tagopay-calc-val">km당 별도</div>
+            <div class="tagopay-calc-sub">계약 시 요금표 확인</div>
+          </div>
+          <div class="tagopay-calc-item">
+            <div class="tagopay-calc-label">만기 후 처리</div>
+            <div class="tagopay-calc-val">신차 교체 가능</div>
+            <div class="tagopay-calc-sub">1~2년 후 최신차로</div>
+          </div>
+        </div>
+      </div>`;
+  } else {
+    tagopayBox.style.display='none';
+  }
+
+  // 조건 요약
+  const condTitle={longterm:'신차장기렌트 조건',shortterm:'1년렌트 조건',tagopay:'타고PAY플러스 조건'}[productKey];
+  const condSub={longterm:'48개월 계약 기준',shortterm:'12개월 계약 기준',tagopay:'연 1만km 저마일리지 기준'}[productKey];
+  document.getElementById('r-cond-title').textContent=condTitle;
+  document.getElementById('r-cond-sub').textContent=condSub;
+
+  const CONDS={
+    longterm:[
+      {icon:'📅',key:'계약 기간',val:'36 ~ 60개월 (주력 48개월)',cls:''},
+      {icon:'💰',key:'월 렌탈료',val:cars[0].prices.longterm,cls:'hl'},
+      {icon:'🏦',key:'보증금',val:'월 렌탈료 × 3~6개월분',cls:''},
+      {icon:'↩️',key:'보증금 환급',val:'만기 후 전액 환급',cls:'hl'},
+      {icon:'🛣️',key:'기본 주행거리',val:'연 20,000km (하루 약 55km)',cls:''},
+      {icon:'⚠️',key:'초과 주행 요금',val:'초과 km당 별도 요금 발생',cls:'warn'},
+      {icon:'🛡️',key:'보험',val:'자차·대인·대물 종합 포함',cls:'hl'},
+      {icon:'🔧',key:'정비',val:'SK렌터카 전국 정비망 이용',cls:''},
+    ],
+    shortterm:[
+      {icon:'📅',key:'계약 기간',val:'12개월 고정',cls:''},
+      {icon:'💰',key:'월 렌탈료',val:cars[0].prices.shortterm,cls:'hl'},
+      {icon:'🏦',key:'보증금',val:'장기 대비 낮은 편',cls:''},
+      {icon:'↩️',key:'보증금 환급',val:'만기 후 전액 환급',cls:'hl'},
+      {icon:'🛣️',key:'기본 주행거리',val:'연 20,000km (하루 약 55km)',cls:''},
+      {icon:'⚠️',key:'초과 주행 요금',val:'초과 km당 별도 요금 발생',cls:'warn'},
+      {icon:'🔄',key:'만기 후 처리',val:'반납 후 재계약 또는 상품 전환 자유',cls:'hl'},
+      {icon:'🛡️',key:'보험',val:'자차·대인·대물 종합 포함',cls:'hl'},
+    ],
+    tagopay:[
+      {icon:'📅',key:'계약 기간',val:'1 ~ 2년',cls:''},
+      {icon:'💰',key:'월 렌탈료',val:cars[0].prices.tagopay||'—',cls:'hl'},
+      {icon:'🏦',key:'보증금',val:'최소화 구조 (낮은 초기 부담)',cls:'hl'},
+      {icon:'🛣️',key:'기준 주행거리',val:'연 10,000km (하루 약 27km)',cls:''},
+      {icon:'⚠️',key:'초과 주행',val:'연 1만km 초과 시 km당 추가 요금',cls:'warn'},
+      {icon:'⚡',key:'과금 특징',val:'탄 만큼 내는 저마일리지 구조',cls:'hl'},
+      {icon:'🔄',key:'만기 후 처리',val:'신차 교체 가능 (최신차 유지)',cls:'hl'},
+      {icon:'🛡️',key:'보험',val:'자차·대인·대물 종합 포함',cls:'hl'},
+    ]
+  };
+
+  const condBody=document.getElementById('r-cond-body');
+  condBody.innerHTML=CONDS[productKey].map(r=>`
+    <div class="cond-row">
+      <div class="cond-key"><span class="cond-key-icon">${r.icon}</span>${r.key}</div>
+      <div class="cond-val ${r.cls}">${r.val}</div>
+    </div>`).join('');
+
+  // 비교 테이블
+  const activeCol={longterm:1,shortterm:2,tagopay:3}[productKey];
+  const cmpTable=document.getElementById('r-cmp-table');
+  const rows=[
+    ['비교 항목','신차장기렌트','1년렌트','타고PAY플러스'],
+    ['월 렌탈료',cars[0].prices.longterm,cars[0].prices.shortterm,cars[0].prices.tagopay||'해당없음'],
+    ['계약 기간','36~60개월','12개월','1~2년'],
+    ['보증금','렌탈료 × 3~6개월','상대적으로 낮음','최소화'],
+    ['기본 주행','연 20,000km','연 20,000km','연 10,000km'],
+    ['만기 처리','반납/재계약','반납/재계약','신차 교체 가능'],
+    ['추천 대상','장기 안정+비용 최소화','첫 렌트/단기 유연','연 1만km 저마일리지'],
+  ];
+  cmpTable.innerHTML=rows.map((row,ri)=>`<tr>${row.map((cell,ci)=>{
+    const isActive=(ci===activeCol);
+    if(ri===0) return `<th class="${isActive?'active-col':''}">${cell}</th>`;
+    return `<td class="${isActive?'active-col':''}">${cell}</td>`;
+  }).join('')}</tr>`).join('');
+}
+
+function restart(){
+  Object.keys(ans).forEach(k=>delete ans[k]);
+  document.querySelectorAll('.opt').forEach(o=>o.classList.remove('sel'));
+  ['btn-q1','btn-q2','btn-q3','btn-q4','btn-q5'].forEach(id=>{
+    const b=document.getElementById(id);
+    if(b) b.disabled=true;
+  });
+  document.getElementById('s-result').classList.remove('active');
+  document.getElementById('s-hero').classList.add('active');
+  document.getElementById('header-info').textContent='신차 큐레이션';
+}
+</script>
+</body>
+</html>
